@@ -1,0 +1,1 @@
+/Users/pivotal/go/bin/golint $@ | grep -v "should have comment or be unexported"
