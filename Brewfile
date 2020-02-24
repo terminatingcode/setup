@@ -25,6 +25,7 @@ brew 'watch'
 brew 'tmux'
 
 tap 'caskroom/cask'
+cask '1password'
 cask 'atom'
 cask 'docker'
 cask 'flycut'
@@ -34,7 +35,6 @@ cask 'virtualbox'
 cask 'vagrant'
 cask 'visual-studio-code'
 cask 'shiftit'
-cask 'zoomus'
 
 tap 'git-duet/tap'
 brew 'git-duet'
@@ -46,4 +46,8 @@ brew 'cmake'
 
 tap 'universal-ctags/universal-ctags'
 brew 'universal-ctags', args: ['HEAD']
+
+tap 'heroku/brew'
+brew 'heroku'
+
 
