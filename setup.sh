@@ -44,6 +44,10 @@ function update_brew_bundle {
   set -e
 }
 
+function ensureLatestBashShell {
+  chsh -s /usr/local/bin/bash
+}
+
 function install_golang {
   local version="1.12.6"
   gimme $version
@@ -85,6 +89,7 @@ function main {
   configure_bash_it
   ensure_brew_exists
   update_brew_bundle
+  ensureLatestBashShell
   install_golang
   update_luanvim
   install_cred_alert_cli
