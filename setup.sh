@@ -84,6 +84,12 @@ function install_ginkgo_gomega {
    go get github.com/onsi/gomega/...
 }
 
+function install_code_extensions {
+  code --install-extension esbenp.prettier-vscode
+  code --install-extension dbaeumer.vscode-eslint
+  code --install-extension jebbs.platnuml
+}
+
 function main {
   update_bash_it
   configure_bash_it
