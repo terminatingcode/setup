@@ -35,7 +35,3 @@ fi
 # direnv
 eval "$(direnv hook bash)"
 
-# aliases
-
-alias 'da'='direnv allow'
-
