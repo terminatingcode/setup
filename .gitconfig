@@ -10,6 +10,7 @@
 	di = diff
 	co = checkout
 	ci = duet-commit --verbose
+	c = commit --verbose
 	br = branch
 	sta = stash
 	llog = log --date=local
