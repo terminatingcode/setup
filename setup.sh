@@ -3,6 +3,7 @@
 set -eo pipefail
 
 function update_bash_it {
+  echo "update bash-it"
   git submodule update --init
 
   "$HOME/.bash_it/install.sh" --silent --no-modify-config
@@ -15,6 +16,7 @@ function update_bash_it {
 }
 
 function configure_bash_it {
+  echo "configure bash-it"
   set +e
   for completion in bash-it brew docker git ssh terraform; do
     bash-it enable completion $completion
@@ -26,12 +28,14 @@ function configure_bash_it {
 }
 
 function ensure_brew_exists {
+  echo "ensuring brew exists"
   if [[ ! -x /usr/local/bin/brew ]] ; then
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 }
 
 function update_brew_bundle {
+  echo "updating brew bundle"
   brew update
   brew tap Homebrew/bundle
 
@@ -45,29 +49,32 @@ function update_brew_bundle {
 }
 
 function ensureLatestBashShell {
-  chsh -s /usr/local/bin/bash
+  if [[ ! $SHELL = "/usr/local/bin/bash" ]] ; then
+    echo "changing shell to bash"
+    if ! grep -q /usr/local/bin/bash /private/etc/shells ; then
+      echo "adding bash ${bash --version} to /etc/shells"
+      echo $(brew --prefix)/bin/bash | sudo tee -a /private/etc/shells
+    fi
+    chsh -s /usr/local/bin/bash
+  fi
 }
 
 function install_golang {
-  local version="1.12.6"
+  echo "installing Go"
+  local version="1.19.3"
   gimme $version
   # shellcheck disable=SC1090
   source "$HOME/.gimme/envs/go$version.env"
 }
 
-function update_luanvim {
+function install_luanvim {
   echo "Ensuring that we have neovim python plugins..."
   pip3 install neovim
-  echo "Updating luanvim..."
-  if [[ ! -d "$HOME/.vim" ]] ; then
+  echo "installing luanvim..."
+  if [[ ! -d "$HOME/.config/nvim" ]] ; then
     git clone https://github.com/luan/vimfiles.git ~/.vim
+    git clone https://github.com/luan/nvim ~/.config/nvim
   fi
-  (
-    cd "$HOME/.vim"
-    git checkout master
-    git pull -r
-    ~/.vim/update
-  )
 }
 
 function install_cred_alert_cli {
@@ -80,8 +87,7 @@ function install_cred_alert_cli {
 }
 
 function install_ginkgo_gomega {
-   go get github.com/onsi/ginkgo/ginkgo
-   go get github.com/onsi/gomega/...
+   go install github.com/onsi/ginkgo/v2/ginkgo@latest
 }
 
 function install_code_extensions {
@@ -97,9 +103,11 @@ function main {
   update_brew_bundle
   ensureLatestBashShell
   install_golang
-  update_luanvim
+  install_luanvim
   install_cred_alert_cli
   install_ginkgo_gomega
+
+  echo "All done 🥳"
 }
 
 main
