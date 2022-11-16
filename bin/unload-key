@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-set -u
-
-ssh-add -D
-lpass status
-lpass logout
