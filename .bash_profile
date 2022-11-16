@@ -17,7 +17,12 @@ source "$BASH_IT/bash_it.sh"
 shopt -s histappend  # Append to .bash_history file rather than overwriting
 
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+
+# eval local ruby version
+export PATH="$HOME/.rbenv/shims:$PATH"
+eval "$(rbenv init -)"
 
 # Set my editor and git editor
 export EDITOR="nvim"

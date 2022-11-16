@@ -54,3 +54,5 @@
   linenumber = true
 [http "https://gopkg.in"]
 	followRedirects = true
+[user]
+	email = 14093193+terminatingcode@users.noreply.github.com
