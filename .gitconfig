@@ -9,7 +9,6 @@
 	st = status
 	di = diff
 	co = checkout
-	ci = duet-commit --verbose
 	c = commit --verbose
 	br = branch
 	sta = stash
@@ -56,3 +55,4 @@
 	followRedirects = true
 [user]
 	email = 14093193+terminatingcode@users.noreply.github.com
+	name = Sarah Connor
