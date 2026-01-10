@@ -1,6 +1,3 @@
-tap 'homebrew/bundle'
-tap 'homebrew/core'
-
 brew 'autojump'
 brew 'bat'
 brew 'coreutils'
@@ -23,7 +20,4 @@ tap 'neovim/neovim'
 brew 'neovim'
 # implicit dependency of neovim
 brew 'cmake'
-
-tap 'universal-ctags/universal-ctags'
-brew 'universal-ctags', args: ['HEAD']
 

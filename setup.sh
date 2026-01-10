@@ -12,8 +12,6 @@ function ensure_brew_exists {
 function update_brew_bundle {
   echo "updating brew bundle"
   brew update
-  brew tap Homebrew/bundle
-
   if [ -f '/usr/local/bin/gpg-agent' ]; then
     rm /usr/local/bin/gpg-agent
   fi
@@ -23,21 +21,27 @@ function update_brew_bundle {
   set -e
 }
 
-function install_luanvim {
-  echo "Ensuring that we have neovim python plugins..."
-  pip3 install neovim
-  echo "installing luanvim..."
-  if [[ ! -d "$HOME/.config/nvim" ]] ; then
-    git clone https://github.com/luan/vimfiles.git ~/.vim
-    git clone https://github.com/luan/nvim ~/.config/nvim
+function install_oh_my_zsh {
+  echo "installing oh my zsh"
+  if [ -d ~/.oh-my-zsh ]; then
+    echo "oh my zsh already installed 👍"
+  else
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   fi
+}
+
+function move_dot_files {
+  echo "symlinking dot files to home"
+  ln -s ~/setup/.aliases ~/.aliases
+  ln -s ~/setup/.gitconfig ~/.gitconfig
+  ln -s ~/setup/.zshrc ~/.zshrc
 }
 
 function main {
   ensure_brew_exists
+  install_oh_my_zsh
   update_brew_bundle
-  install_luanvim
-
+  move_dot_files
   echo "All done 🥳"
 }
 
